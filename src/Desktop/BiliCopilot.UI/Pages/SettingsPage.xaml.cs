@@ -27,7 +27,7 @@ public sealed partial class SettingsPage : SettingsPageBase
 /// <summary>
 /// 设置页面基类.
 /// </summary>
-public abstract class SettingsPageBase : LayoutPageBase<SettingsPageViewModel>
+public partial class SettingsPageBase : LayoutPageBase<SettingsPageViewModel>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsPageBase"/> class.

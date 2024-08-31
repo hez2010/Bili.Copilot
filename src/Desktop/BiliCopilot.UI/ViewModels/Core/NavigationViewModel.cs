@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Bili Copilot. All rights reserved.
 
+using System.Diagnostics.CodeAnalysis;
 using BiliCopilot.UI.Forms;
 using BiliCopilot.UI.Models.Constants;
 using BiliCopilot.UI.Pages;
@@ -34,7 +35,7 @@ public sealed partial class NavigationViewModel : ViewModelBase, INavServiceView
     private IReadOnlyCollection<AppNavigationItemViewModel> _footerItems;
 
     /// <inheritdoc/>
-    public void NavigateTo(string pageKey, object? parameter = null)
+    public void NavigateTo([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type pageType, object? parameter = null)
     {
         if (_navFrame is null)
         {
@@ -49,25 +50,23 @@ public sealed partial class NavigationViewModel : ViewModelBase, INavServiceView
             _overFrame.Navigate(typeof(Page));
             _overFrame.BackStack.Clear();
 
-            if (pageKey == lastSelectedPage)
+            if (pageType.FullName == lastSelectedPage)
             {
                 return;
             }
         }
 
-        if (lastSelectedPage == pageKey && _navFrame.Content is not null && _navFrame.Content.GetType().FullName == lastSelectedPage)
+        if (lastSelectedPage == pageType.FullName && _navFrame.Content is not null && _navFrame.Content.GetType().FullName == lastSelectedPage)
         {
             return;
         }
 
-        SettingsToolkit.WriteLocalSetting(SettingNames.LastSelectedFeaturePage, pageKey);
-        var pageType = Type.GetType(pageKey)
-            ?? throw new InvalidOperationException("无法找到页面.");
+        SettingsToolkit.WriteLocalSetting(SettingNames.LastSelectedFeaturePage, pageType.FullName);
         _navFrame.Navigate(pageType, parameter, new Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo());
     }
 
     /// <inheritdoc/>
-    public void NavigateToOver(string pageKey, object? parameter = null)
+    public void NavigateToOver([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type pageType, object? parameter = null)
     {
         if (_overFrame is null)
         {
@@ -80,8 +79,6 @@ public sealed partial class NavigationViewModel : ViewModelBase, INavServiceView
         }
 
         ActiveMainWindow();
-        var pageType = Type.GetType(pageKey)
-            ?? throw new InvalidOperationException("无法找到页面.");
         if (pageType == typeof(VideoPlayerPage) && _overFrame.Content is VideoPlayerPage page)
         {
             page.ViewModel.InitializePageCommand.Execute(parameter);
@@ -116,7 +113,7 @@ public sealed partial class NavigationViewModel : ViewModelBase, INavServiceView
             return;
         }
 
-        NavigateToOver(typeof(SearchPage).FullName, keyword);
+        NavigateToOver(typeof(SearchPage), keyword);
     }
 
     /// <summary>
@@ -158,8 +155,8 @@ public sealed partial class NavigationViewModel : ViewModelBase, INavServiceView
 
         _navFrame = navFrame;
         _overFrame = overFrame;
-        MenuItems = [.. GetMenuItems()];
-        FooterItems = [.. GetFooterItems()];
+        MenuItems = GetMenuItems();
+        FooterItems = GetFooterItems();
     }
 
     private IReadOnlyList<AppNavigationItemViewModel> GetMenuItems()
@@ -199,9 +196,9 @@ public sealed partial class NavigationViewModel : ViewModelBase, INavServiceView
         };
     }
 
-    private AppNavigationItemViewModel GetItem<TPage>(StringNames title, FluentIcons.Common.Symbol symbol, bool isSelected = false)
+    private AppNavigationItemViewModel GetItem<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TPage>(StringNames title, FluentIcons.Common.Symbol symbol, bool isSelected = false)
         where TPage : Page
-        => new AppNavigationItemViewModel(this, typeof(TPage).FullName, ResourceToolkit.GetLocalizedString(title), symbol, isSelected);
+        => new AppNavigationItemViewModel(this, typeof(TPage), ResourceToolkit.GetLocalizedString(title), symbol, isSelected);
 
     private void ActiveMainWindow()
         => this.Get<AppViewModel>().Windows.Find(p => p is MainWindow)?.Activate();

@@ -5,6 +5,7 @@
     <LangVersion>latest</LangVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <Configurations>Debug;Release;Publish</Configurations>
+    <NoWarn>$(NoWarn);NETSDK1210</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

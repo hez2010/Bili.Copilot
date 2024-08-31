@@ -42,10 +42,10 @@ public sealed partial class VideoPartitionDetailViewModel : ViewModelBase<Partit
             var children = Data.Children.ToList();
             var rcmdPartition = new Partition(Data.Data.Id, ResourceToolkit.GetLocalizedString(StringNames.Recommend));
             children.Insert(0, new PartitionViewModel(rcmdPartition));
-            Children = [.. children];
+            Children = children;
         }
 
-        SortTypes = [.. Enum.GetValues<PartitionVideoSortType>()];
+        SortTypes = Enum.GetValues<PartitionVideoSortType>();
         SelectedSortType = PartitionVideoSortType.Default;
         await ChangeChildPartitionAsync(Children.First());
         Initialized?.Invoke(this, EventArgs.Empty);

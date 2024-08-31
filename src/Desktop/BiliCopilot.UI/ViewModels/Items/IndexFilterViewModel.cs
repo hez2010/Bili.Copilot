@@ -26,7 +26,7 @@ public sealed partial class IndexFilterViewModel : ViewModelBase<Filter>
     public IndexFilterViewModel(Filter filter, Action? reloadAction)
         : base(filter)
     {
-        Conditions = [.. filter.Conditions];
+        Conditions = filter.Conditions.ToArray();
         CurrentCondition = Conditions.FirstOrDefault();
         _reloadAction = reloadAction;
     }

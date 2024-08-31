@@ -44,7 +44,7 @@ public sealed partial class SeasonItemViewModel : ViewModelBase<SeasonInformatio
     private void Play()
     {
         var identifier = new MediaIdentifier("ss_" + Data.Identifier.Id, default, default);
-        this.Get<NavigationViewModel>().NavigateToOver(typeof(PgcPlayerPage).FullName, identifier);
+        this.Get<NavigationViewModel>().NavigateToOver(typeof(PgcPlayerPage), identifier);
     }
 
     [RelayCommand]

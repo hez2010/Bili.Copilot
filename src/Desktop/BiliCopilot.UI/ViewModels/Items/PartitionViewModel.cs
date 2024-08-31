@@ -27,7 +27,7 @@ public sealed partial class PartitionViewModel : ViewModelBase<Partition>
         Logo = partition.Image?.Uri;
         if (partition.Children is not null)
         {
-            Children = [.. partition.Children.Select(p => new PartitionViewModel(p))];
+            Children = partition.Children.Select(p => new PartitionViewModel(p)).ToArray();
         }
     }
 

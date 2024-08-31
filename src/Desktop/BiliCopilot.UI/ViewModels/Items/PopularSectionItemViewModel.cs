@@ -8,7 +8,7 @@ namespace BiliCopilot.UI.ViewModels.Items;
 /// <summary>
 /// 流行视频区块项视图模型.
 /// </summary>
-public sealed class PopularSectionItemViewModel : ViewModelBase, IPopularSectionItemViewModel
+public sealed partial class PopularSectionItemViewModel : ViewModelBase, IPopularSectionItemViewModel
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PopularSectionItemViewModel"/> class.

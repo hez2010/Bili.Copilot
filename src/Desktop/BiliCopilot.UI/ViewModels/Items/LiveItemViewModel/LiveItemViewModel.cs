@@ -47,7 +47,7 @@ public sealed partial class LiveItemViewModel : ViewModelBase<LiveInformation>
 
     [RelayCommand]
     private void Play()
-        => this.Get<NavigationViewModel>().NavigateToOver(typeof(LivePlayerPage).FullName, Data.Identifier);
+        => this.Get<NavigationViewModel>().NavigateToOver(typeof(LivePlayerPage), Data.Identifier);
 
     [RelayCommand]
     private async Task OpenInBroswerAsync()
@@ -77,5 +77,5 @@ public sealed partial class LiveItemViewModel : ViewModelBase<LiveInformation>
 
     [RelayCommand]
     private void ShowUserSpace()
-        => this.Get<NavigationViewModel>().NavigateToOver(typeof(UserSpacePage).FullName, Data.User);
+        => this.Get<NavigationViewModel>().NavigateToOver(typeof(UserSpacePage), Data.User);
 }

@@ -44,7 +44,7 @@ public sealed partial class ArticlePartitionDetailViewModel : ViewModelBase<Part
             var children = Data.Children.ToList();
             var rcmdPartition = new Partition(Data.Data.Id, ResourceToolkit.GetLocalizedString(StringNames.RecommendArticle));
             children.Insert(0, new PartitionViewModel(rcmdPartition));
-            Children = [.. children];
+            Children = children;
         }
 
         if (_isRecommendPartition || _isHotPartition)
@@ -54,7 +54,7 @@ public sealed partial class ArticlePartitionDetailViewModel : ViewModelBase<Part
         }
         else
         {
-            SortTypes = [.. Enum.GetValues<ArticleSortType>()];
+            SortTypes = Enum.GetValues<ArticleSortType>();
             SelectedSortType = ArticleSortType.Default;
             await ChangeChildPartitionAsync(Children.First());
         }

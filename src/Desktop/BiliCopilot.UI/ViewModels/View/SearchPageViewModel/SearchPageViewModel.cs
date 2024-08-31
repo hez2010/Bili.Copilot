@@ -70,7 +70,7 @@ public sealed partial class SearchPageViewModel : LayoutPageViewModelBase
                 }
             }
 
-            Sections = [.. sections];
+            Sections = sections;
             SelectSection(Sections.FirstOrDefault());
             SectionInitialized?.Invoke(this, EventArgs.Empty);
         }

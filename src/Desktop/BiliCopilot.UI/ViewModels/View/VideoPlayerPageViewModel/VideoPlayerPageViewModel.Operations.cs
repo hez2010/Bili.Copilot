@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Bili Copilot. All rights reserved.
 
-using BiliCopilot.UI.Extensions;
 using BiliCopilot.UI.Forms;
 using BiliCopilot.UI.Models;
 using BiliCopilot.UI.Models.Constants;
@@ -150,9 +149,9 @@ public sealed partial class VideoPlayerPageViewModel
     private void ShareVideoUrl()
     {
         var handle = this.Get<AppViewModel>().ActivatedWindow.GetWindowHandle();
-        var transferManager = DataTransferManagerInterop.GetForWindow(handle);
+        var transferManager = Extensions.DataTransferManagerInterop.GetForWindow(handle);
         transferManager.DataRequested += OnTransferDataRequested;
-        DataTransferManagerInterop.ShowShareUIForWindow(handle);
+        Extensions.DataTransferManagerInterop.ShowShareUIForWindow(handle);
 
         void OnTransferDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
@@ -205,7 +204,7 @@ public sealed partial class VideoPlayerPageViewModel
     private void OpenUserSpace()
     {
         var profile = _view.Information.Publisher.User;
-        this.Get<NavigationViewModel>().NavigateToOver(typeof(UserSpacePage).FullName, profile);
+        this.Get<NavigationViewModel>().NavigateToOver(typeof(UserSpacePage), profile);
     }
 
     [RelayCommand]

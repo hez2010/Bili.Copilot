@@ -109,7 +109,7 @@ public sealed partial class MomentItemViewModel : ViewModelBase<MomentInformatio
         if (FindInnerContent<VideoInformation>() is VideoInformation vinfo)
         {
             var snapshot = new VideoSnapshot(vinfo);
-            this.Get<NavigationViewModel>().NavigateToOver(typeof(VideoPlayerPage).FullName, snapshot);
+            this.Get<NavigationViewModel>().NavigateToOver(typeof(VideoPlayerPage), snapshot);
         }
         else if (FindInnerContent<EpisodeInformation>() is EpisodeInformation einfo)
         {
@@ -117,7 +117,7 @@ public sealed partial class MomentItemViewModel : ViewModelBase<MomentInformatio
             if (hasEpid)
             {
                 var identifier = new MediaIdentifier("ep_" + einfo.Identifier.Id, default, default);
-                this.Get<NavigationViewModel>().NavigateToOver(typeof(PgcPlayerPage).FullName, identifier);
+                this.Get<NavigationViewModel>().NavigateToOver(typeof(PgcPlayerPage), identifier);
             }
             else
             {
@@ -127,7 +127,7 @@ public sealed partial class MomentItemViewModel : ViewModelBase<MomentInformatio
         }
         else if (FindInnerContent<LiveInformation>() is LiveInformation linfo)
         {
-            this.Get<NavigationViewModel>().NavigateToOver(typeof(LivePlayerPage).FullName, linfo);
+            this.Get<NavigationViewModel>().NavigateToOver(typeof(LivePlayerPage), linfo);
         }
         else
         {
@@ -137,7 +137,7 @@ public sealed partial class MomentItemViewModel : ViewModelBase<MomentInformatio
 
     [RelayCommand]
     private void ShowUserSpace()
-        => this.Get<NavigationViewModel>().NavigateToOver(typeof(UserSpacePage).FullName, Data.User);
+        => this.Get<NavigationViewModel>().NavigateToOver(typeof(UserSpacePage), Data.User);
 
     [RelayCommand]
     private void PlayInPrivate()
@@ -149,7 +149,7 @@ public sealed partial class MomentItemViewModel : ViewModelBase<MomentInformatio
         }
 
         var snapshot = new VideoSnapshot(vinfo, true);
-        this.Get<NavigationViewModel>().NavigateToOver(typeof(VideoPlayerPage).FullName, snapshot);
+        this.Get<NavigationViewModel>().NavigateToOver(typeof(VideoPlayerPage), snapshot);
     }
 
     [RelayCommand]

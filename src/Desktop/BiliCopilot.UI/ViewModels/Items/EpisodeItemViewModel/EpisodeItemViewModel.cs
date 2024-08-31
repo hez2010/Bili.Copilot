@@ -39,7 +39,7 @@ public sealed partial class EpisodeItemViewModel : ViewModelBase<EpisodeInformat
     private void Play()
     {
         var id = new MediaIdentifier("ep_" + Data.Identifier.Id, default, default);
-        this.Get<NavigationViewModel>().NavigateToOver(typeof(PgcPlayerPage).FullName, id);
+        this.Get<NavigationViewModel>().NavigateToOver(typeof(PgcPlayerPage), id);
     }
 
     [RelayCommand]
